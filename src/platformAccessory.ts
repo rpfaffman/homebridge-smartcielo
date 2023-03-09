@@ -21,7 +21,7 @@ export class CieloPlatformAccessory {
     this.accessory
       .getService(this.platform.Service.AccessoryInformation)!
       .setCharacteristic(this.platform.Characteristic.Manufacturer, 'Cielo')
-      .setCharacteristic(this.platform.Characteristic.Model, 'BP01')
+      .setCharacteristic(this.platform.Characteristic.Model, 'BREEZ-PLUS')
       .setCharacteristic(
         this.platform.Characteristic.SerialNumber,
         this.hvac.getMacAddress(),
@@ -147,7 +147,7 @@ export class CieloPlatformAccessory {
           ' °C',
       );
       await this.hvac.setTemperature(
-        temperatureInFahrenheit,
+        temperatureInFahrenheit.toString(),
         this.platform.hvacAPI,
       );
     }
