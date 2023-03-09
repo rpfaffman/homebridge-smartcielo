@@ -1,15 +1,15 @@
 {
-  "displayName": "Homebridge MrCool",
-  "name": "homebridge-mrcool",
+  "displayName": "Homebridge Cielo",
+  "name": "homebridge-smartcielo",
   "version": "1.0.0",
-  "description": "A Homebridge plugin for controlling MrCool Mini Splits using node-mrcool",
+  "description": "A Homebridge plugin for controlling Cielo Thermostats for Mini Splits using node-cielo",
   "license": "Apache-2.0",
   "repository": {
     "type": "git",
-    "url": "https://github.com/isaac-webb/homebridge-mrcool.git"
+    "url": "https://github.com/ryanfroese/homebridge-smartcielo.git"
   },
   "bugs": {
-    "url": "https://github.com/isaac-webb/homebridge-mrcool/issues"
+    "url": "https://github.com/ryanfroese/homebridge-smartcielo/issues"
   },
   "engines": {
     "node": ">=14.18.1",
