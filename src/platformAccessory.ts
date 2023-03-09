@@ -1,38 +1,47 @@
-import { Service, PlatformAccessory, CharacteristicValue } from 'homebridge';
+import {Service, PlatformAccessory, CharacteristicValue} from 'homebridge';
 
-import { MrCoolHomebridgePlatform } from './platform';
-import { MrCoolHVAC } from 'node-mrcool';
+import {CieloHomebridgePlatform} from './platform';
+import {CieloHVAC} from 'node-smartcielo-ws';
 
 /**
  * Platform Accessory
  * An instance of this class is created for each accessory your platform registers
  * Each accessory may expose multiple services of different service types.
  */
-export class MrCoolPlatformAccessory {
+export class CieloPlatformAccessory {
   private service: Service;
   private temperatureDisplayUnits = 1;
 
   constructor(
-    private readonly platform: MrCoolHomebridgePlatform,
+    private readonly platform: CieloHomebridgePlatform,
     private readonly accessory: PlatformAccessory,
-    private readonly hvac: MrCoolHVAC,
+    private readonly hvac: CieloHVAC,
   ) {
-
     // Set accessory information
-    this.accessory.getService(this.platform.Service.AccessoryInformation)!
-      .setCharacteristic(this.platform.Characteristic.Manufacturer, 'MrCool')
-      .setCharacteristic(this.platform.Characteristic.Model, 'BREEZ-I')
-      .setCharacteristic(this.platform.Characteristic.SerialNumber, this.hvac.getMacAddress());
+    this.accessory
+      .getService(this.platform.Service.AccessoryInformation)!
+      .setCharacteristic(this.platform.Characteristic.Manufacturer, 'Cielo')
+      .setCharacteristic(this.platform.Characteristic.Model, 'BP01')
+      .setCharacteristic(
+        this.platform.Characteristic.SerialNumber,
+        this.hvac.getMacAddress(),
+      );
 
     // Establish a Thermostat service
-    this.service = this.accessory.getService(this.platform.Service.Thermostat)
-      || this.accessory.addService(this.platform.Service.Thermostat);
+    this.service =
+      this.accessory.getService(this.platform.Service.Thermostat) ||
+      this.accessory.addService(this.platform.Service.Thermostat);
 
     // Set the service name, this is what is displayed as the default name on the Home app
-    this.service.setCharacteristic(this.platform.Characteristic.Name, this.hvac.getDeviceName());
+    this.service.setCharacteristic(
+      this.platform.Characteristic.Name,
+      this.hvac.getDeviceName(),
+    );
 
     this.service
-      .getCharacteristic(this.platform.Characteristic.CurrentHeatingCoolingState)
+      .getCharacteristic(
+        this.platform.Characteristic.CurrentHeatingCoolingState,
+      )
       .onGet(this.getCurrentHeatingCoolingState.bind(this));
 
     this.service
@@ -81,7 +90,10 @@ export class MrCoolPlatformAccessory {
   }
 
   async getTemperatureDisplayUnits(): Promise<CharacteristicValue> {
-    this.platform.log.debug('getTemperatureDisplayUnits', this.temperatureDisplayUnits);
+    this.platform.log.debug(
+      'getTemperatureDisplayUnits',
+      this.temperatureDisplayUnits,
+    );
     return this.temperatureDisplayUnits;
   }
 
@@ -118,20 +130,34 @@ export class MrCoolPlatformAccessory {
   }
 
   async setTargetTemperature(temperature: CharacteristicValue) {
-    const temperatureInFahrenheit = this.convertCelsiusToFahrenheit(temperature, 62, 86);
+    const temperatureInFahrenheit = this.convertCelsiusToFahrenheit(
+      temperature,
+      62,
+      86,
+    );
     this.platform.log.debug('setTargetTemperature', temperatureInFahrenheit);
     if (this.hvac.getTemperature() === temperature) {
       this.platform.log.debug('Skipping Command');
     } else {
-      this.platform.log.info('Setting temperature to ' + temperatureInFahrenheit + ' °F / '
-        + this.convertFahrenheitToCelsius(temperatureInFahrenheit) + ' °C');
-      await this.hvac.setTemperature(temperatureInFahrenheit, this.platform.hvacAPI);
+      this.platform.log.info(
+        'Setting temperature to ' +
+          temperatureInFahrenheit +
+          ' °F / ' +
+          this.convertFahrenheitToCelsius(temperatureInFahrenheit) +
+          ' °C',
+      );
+      await this.hvac.setTemperature(
+        temperatureInFahrenheit,
+        this.platform.hvacAPI,
+      );
     }
   }
 
   async setTemperatureDisplayUnits(displayUnits: CharacteristicValue) {
     this.platform.log.debug('setTemperatureDisplayUnits', displayUnits);
-    this.platform.log.info('Setting temperature display units to ' + (displayUnits ? '°F' : '°C'));
+    this.platform.log.info(
+      'Setting temperature display units to ' + (displayUnits ? '°F' : '°C'),
+    );
     this.temperatureDisplayUnits = displayUnits as number;
   }
 
@@ -139,12 +165,19 @@ export class MrCoolPlatformAccessory {
     return power === 'off' ? 'off' : mode;
   }
 
-  private convertCelsiusToFahrenheit(temperature, minTemperature, maxTemperature) {
-    return Math.min(Math.max(Math.round(temperature * 9 / 5 + 32), minTemperature), maxTemperature);
+  private convertCelsiusToFahrenheit(
+    temperature,
+    minTemperature,
+    maxTemperature,
+  ) {
+    return Math.min(
+      Math.max(Math.round((temperature * 9) / 5 + 32), minTemperature),
+      maxTemperature,
+    );
   }
 
   private convertFahrenheitToCelsius(temperature) {
-    return Math.round((temperature - 32) * 5 / 9 * 10)/10;
+    return Math.round((((temperature - 32) * 5) / 9) * 10) / 10;
   }
 
   private convertHeatingCoolingStateToMode(state) {
@@ -175,3 +208,6 @@ export class MrCoolPlatformAccessory {
     }
   }
 }
+// function setTimeout(arg0: () => Promise<void>, arg1: number) {
+//   throw new Error('Function not implemented.');
+// }

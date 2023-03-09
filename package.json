@@ -1,7 +1,7 @@
 {
   "displayName": "Homebridge Cielo",
-  "name": "homebridge-smartcielo",
-  "version": "1.0.0",
+  "name": "homebridge-cielo",
+  "version": "1.0.1",
   "description": "A Homebridge plugin for controlling Cielo Thermostats for Mini Splits using node-cielo",
   "license": "Apache-2.0",
   "repository": {
@@ -23,10 +23,12 @@
     "prepublishOnly": "npm run lint && npm run build"
   },
   "keywords": [
-    "homebridge-plugin"
+    "homebridge-plugin",
+    "cielo"
   ],
   "dependencies": {
-    "node-mrcool": "^1.0.0"
+    "node-mrcool": "^1.0.0",
+    "node-smartcielo-ws": "^1.0.1"
   },
   "devDependencies": {
     "@types/node": "^16.10.9",

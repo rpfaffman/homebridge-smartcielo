@@ -1,17 +1,17 @@
-# MrCool Homebridge Plugin
+# Cielo Thermostat Homebridge Plugin
 
-[![license](https://badgen.net/github/license/isaac-webb/homebridge-mrcool)](https://github.com/isaac-webb/homebridge-mrcool/blob/master/LICENSE)
-[![npm](https://badgen.net/npm/v/homebridge-mrcool)](https://www.npmjs.com/package/homebridge-mrcool)
-[![npm](https://badgen.net/npm/dt/homebridge-mrcool)](https://www.npmjs.com/package/homebridge-mrcool)
+[![license](https://badgen.net/github/license/isaac-webb/homebridge-mrcool)](https://github.com/ryanfroese/homebridge-smartcielo/blob/master/LICENSE)
+[![npm](https://badgen.net/npm/v/homebridge-mrcool)](https://www.npmjs.com/package/homebridge-smartcielo)
+[![npm](https://badgen.net/npm/dt/homebridge-mrcool)](https://www.npmjs.com/package/homebridge-smartcielo)
 
-This plugin allows HomeKit to control MrCool mini splits using the [`node-mrcool`](https://github.com/isaac-webb/node-mrcool) package. 
+This plugin allows HomeKit to control Cielo mini splits using the [`node-smartcielo-ws`](https://github.com/ryanfroese/node-cielo) package.
 
 ## Acknowledgements
 
 Like [`node-mrcool`](https://github.com/isaac-webb/node-mrcool), the vast majority of this code is either copied straight from or largely
 based on [Nicholas Robinson's](https://github.com/nicholasrobinson)
-[`homebridge-smartcielo`](https://github.com/nicholasrobinson/homebridge-smartcielo). I made the changes necessary to make this plugin work
-with my rewritten version of the API package.
+[`homebridge-smartcielo`](https://github.com/nicholasrobinson/homebridge-smartcielo). I then copied [isaac-webb's](https://github.com/isaac-webb) version and made the changes necessary to make this plugin work
+with my rewritten version of his API package.
 
 ## Usage
 
@@ -21,9 +21,4 @@ control.
 
 ## Contributing
 
-This package is a work in progress. Documentation is definitely lacking, and there are a few improvements that can be made (remove silly
-MAC address formatting restriction). Feel free to reach out with questions, comments, or recommendations.
-
-Best,
-
--Isaac Webb
+This is my first fork of another package, and I'm still learning how to use GitHub to collaborate.
